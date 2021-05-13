@@ -1,7 +1,6 @@
 package com.caputo.productsystem.services;
 
 import com.caputo.productsystem.dto.ProductDTO;
-import com.caputo.productsystem.dto.ProductUpdateDTO;
 import com.caputo.productsystem.entities.Product;
 import com.caputo.productsystem.repositories.ProductRepository;
 import com.caputo.productsystem.services.excptions.DatabaseException;
@@ -43,12 +42,12 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductUpdateDTO update(Long id, ProductDTO dto) {
+    public ProductDTO update(Long id, ProductDTO dto) {
         try {
             Product entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new ProductUpdateDTO(entity);
+            return new ProductDTO(entity);
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
