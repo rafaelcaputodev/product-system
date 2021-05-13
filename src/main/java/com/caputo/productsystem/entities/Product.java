@@ -28,8 +28,17 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
+    // Atributo acrescentado para atualizar data de cadastro do produto
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant update;
+
     @PrePersist
     public void prePersist() {
         date = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        update = Instant.now();
     }
 }

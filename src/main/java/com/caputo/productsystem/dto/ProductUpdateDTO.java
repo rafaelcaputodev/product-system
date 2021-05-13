@@ -10,8 +10,8 @@ import java.time.Instant;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-public class ProductDTO implements Serializable {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class ProductUpdateDTO implements Serializable {
     public static final Long serialVersionUID = 1L;
 
     @EqualsAndHashCode.Include
@@ -20,16 +20,13 @@ public class ProductDTO implements Serializable {
     private String name;
     private Double price;
     private Integer quantity;
-    private Instant date;
     private Instant update;
 
-    public ProductDTO(Product entity){
-            id = entity.getId();
-            name = entity.getName();
-            price = entity.getPrice();
-            quantity = entity.getQuantity();
-            date = entity.getDate();
-            update = entity.getUpdate();
-        }
+    public ProductUpdateDTO(Product entity){
+        id = entity.getId();
+        name = entity.getName();
+        price = entity.getPrice();
+        quantity = entity.getQuantity();
+        update = entity.getUpdate();
+    }
 }
-

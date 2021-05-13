@@ -1,6 +1,7 @@
 package com.caputo.productsystem.controllers;
 
 import com.caputo.productsystem.dto.ProductDTO;
+import com.caputo.productsystem.dto.ProductUpdateDTO;
 import com.caputo.productsystem.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ public class ProductController {
         return ResponseEntity.ok(list);
     }
 
+    // Endpoint acrescentado para buscar um produto por id
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         ProductDTO dto = service.findById(id);
@@ -35,5 +37,11 @@ public class ProductController {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProductUpdateDTO> update (@PathVariable Long id, @RequestBody ProductDTO dto){
+        ProductUpdateDTO dto1 = service.update(id, dto);
+        return ResponseEntity.ok().body(dto1);
     }
 }

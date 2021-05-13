@@ -1,6 +1,7 @@
 package com.caputo.productsystem.services;
 
 import com.caputo.productsystem.dto.ProductDTO;
+import com.caputo.productsystem.dto.ProductUpdateDTO;
 import com.caputo.productsystem.entities.Product;
 import com.caputo.productsystem.repositories.ProductRepository;
 import com.caputo.productsystem.services.excptions.ResourceNotFoundException;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -36,10 +39,22 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    @Transactional
+    public ProductUpdateDTO update(Long id, ProductDTO dto) {
+        try {
+            Product entity = repository.getOne(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new ProductUpdateDTO(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
+
     private void copyDtoToEntity(ProductDTO dto, Product entity) {
         entity.setName(dto.getName());
         entity.setPrice(dto.getPrice());
         entity.setQuantity(dto.getQuantity());
-        entity.setDate(dto.getDate());
     }
 }
