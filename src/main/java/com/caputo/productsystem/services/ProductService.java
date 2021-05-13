@@ -27,4 +27,19 @@ public class ProductService {
         Product entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return new ProductDTO(entity);
     }
+
+    @Transactional
+    public ProductDTO insert(ProductDTO dto) {
+        Product entity = new Product();
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new ProductDTO(entity);
+    }
+
+    private void copyDtoToEntity(ProductDTO dto, Product entity) {
+        entity.setName(dto.getName());
+        entity.setPrice(dto.getPrice());
+        entity.setQuantity(dto.getQuantity());
+        entity.setDate(dto.getDate());
+    }
 }
