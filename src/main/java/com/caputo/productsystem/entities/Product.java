@@ -14,7 +14,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
-    public static final Long serialVersionUID= 1L;
+    public static final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
