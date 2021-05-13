@@ -1,0 +1,1 @@
+INSERT INTO tb_product (name, price, quantity, date) VALUES ('Tv', 2.533, 1, NOW());

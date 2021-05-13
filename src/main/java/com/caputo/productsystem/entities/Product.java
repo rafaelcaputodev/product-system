@@ -10,7 +10,7 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
@@ -27,4 +27,9 @@ public class Product implements Serializable {
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
+
+    @PrePersist
+    public void prePersist() {
+        date = Instant.now();
+    }
 }
