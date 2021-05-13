@@ -3,6 +3,7 @@ package com.caputo.productsystem.services;
 import com.caputo.productsystem.dto.ProductDTO;
 import com.caputo.productsystem.entities.Product;
 import com.caputo.productsystem.repositories.ProductRepository;
+import com.caputo.productsystem.services.excptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,11 @@ public class ProductService {
     public Page<ProductDTO> findAllPaged(Pageable pageable) {
         Page<Product> list = repository.findAll(pageable);
         return list.map(x -> new ProductDTO(x));
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDTO findById(Long id) {
+        Product entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        return new ProductDTO(entity);
     }
 }
