@@ -4,7 +4,6 @@ import com.caputo.productsystem.entities.Product;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
@@ -33,16 +32,12 @@ public class ProductDTO implements Serializable {
     @PastOrPresent(message = "Data do produto não pode ser futura")
     private Instant date;
 
-    //@PastOrPresent(message = "Data do produto não pode ser futura")
-    //private Instant update;
-
     public ProductDTO(Product entity){
             id = entity.getId();
             name = entity.getName();
             price = entity.getPrice();
             quantity = entity.getQuantity();
             date = entity.getDate();
-            //update = entity.getUpdate();
         }
 }
 
