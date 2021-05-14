@@ -14,7 +14,7 @@ import java.time.Instant;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProductDTO implements Serializable {
     public static final Long serialVersionUID = 1L;
 
@@ -33,8 +33,8 @@ public class ProductDTO implements Serializable {
     @PastOrPresent(message = "Data do produto não pode ser futura")
     private Instant date;
 
-    @PastOrPresent(message = "Data do produto não pode ser futura")
-    private Instant update;
+    //@PastOrPresent(message = "Data do produto não pode ser futura")
+    //private Instant update;
 
     public ProductDTO(Product entity){
             id = entity.getId();
@@ -42,7 +42,7 @@ public class ProductDTO implements Serializable {
             price = entity.getPrice();
             quantity = entity.getQuantity();
             date = entity.getDate();
-            update = entity.getUpdate();
+            //update = entity.getUpdate();
         }
 }
 
